@@ -26,7 +26,7 @@ class Tree {
 
 	// Sorts and removes duplicates
 	// Working
-	arraySorter(array) {
+	arraySorter(array = this.array) {
 		this.array = array.sort((a, b) => a - b);
 		this.array = array.filter((item, index) => array.indexOf(item) === index);
 
@@ -37,8 +37,8 @@ class Tree {
 	// Builds the Balanced Binary Search Tree
 	// Working
 	buildTree(array = this.array) {
-		this.array = this.arraySorter(array);
-		array = this.array;
+		/*this.array2 = this.arraySorter(array);
+		array = this.array2;*/
 		// NEED TO: Sort, remove duplicates
 		let start = 0;
 		let end = array.length - 1;
@@ -94,7 +94,29 @@ class Tree {
 		return null;
 	}
 
-	levelOrder(callback) {}
+	levelOrder(callback = "") {
+		let queue = [];
+		queue.push(this.root);
+		let leveledOrderArray = [this.root.data];
+		while (queue.length !== 0) {
+			let tempNode = queue.shift();
+
+			if (tempNode.left !== null) {
+				queue.push(tempNode.left);
+				leveledOrderArray.push(tempNode.left.data);
+			}
+			if (tempNode.right !== null) {
+				queue.push(tempNode.right);
+				leveledOrderArray.push(tempNode.right.data);
+			}
+		}
+
+		if (callback === "") {
+			return leveledOrderArray;
+		} else {
+			return "x";
+		}
+	}
 
 	inOrder(callback) {}
 
@@ -115,6 +137,7 @@ function test() {
 	let array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 	//let array = [1, 2, 3, 4];
 	let prova0 = new Tree(array);
+	prova0.arraySorter();
 	prova0.buildTree();
 	console.log();
 	console.log(JSON.stringify(prova0.root, undefined, 4));
@@ -122,8 +145,8 @@ function test() {
 	prova0.prettyPrint(prova0.root);
 	console.log();
 
-	console.log(prova0.find(6345));
-	console.log();
+	//console.log(prova0.find(6345));
+	console.log(prova0.levelOrder());
 }
 
 test();

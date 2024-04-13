@@ -24,7 +24,17 @@ class Tree {
 		this.root = null;
 	}
 
+	arraySorter(array) {
+		this.array = array.sort((a, b) => a - b);
+		this.array = array.filter((item, index) => array.indexOf(item) === index);
+
+		console.log("New sorted array:", this.array);
+		return this.array;
+	}
+
 	buildTree(array = this.array) {
+		this.array = this.arraySorter(array);
+		array = this.array;
 		// NEED TO: Sort, remove duplicates
 		let start = 0;
 		let end = array.length - 1;
@@ -62,17 +72,15 @@ class Tree {
 }
 
 function test() {
-	//let array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-	let array = [1 /*, 7*/, 4, 23, 8, 9 /*, 4*/, 3, 5, 7 /*, 9*/, 67, 6345, 324];
-	array.sort((a, b) => a - b);
-	console.log(array);
-	console.log();
+	let array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 	let prova0 = new Tree(array);
 	prova0.buildTree();
+	console.log();
 	console.log(JSON.stringify(prova0.root, undefined, 4));
-    console.log();
-    prova0.prettyPrint(prova0.root);
+	console.log();
+	prova0.prettyPrint(prova0.root);
+	console.log();
 }
 
 test();

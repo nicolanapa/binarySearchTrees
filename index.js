@@ -28,13 +28,17 @@ class Tree {
 		// NEED TO: Sort, remove duplicates
 		let start = 0;
 		let end = array.length - 1;
-		let mid = (start + end) / 2;
+		let mid = Math.round((start + end) / 2);
 
 		if (start > end) {
 			return null;
 		} else {
-			let arrayBeforeMid = array.slice(0, mid - 1);
-			let arrayAfterMid = array.slice(mid + 1, end);
+			let arrayBeforeMid = array.slice(0, mid);
+			let arrayAfterMid = array.slice(mid + 1, mid + end);
+			console.log("Mid:", array[mid]);
+			console.log("Before:", arrayBeforeMid);
+			console.log("After:", arrayAfterMid);
+
 			let node = new Node(array[mid]);
 			node.left = this.buildTree(arrayBeforeMid);
 			node.right = this.buildTree(arrayAfterMid);
@@ -42,18 +46,33 @@ class Tree {
 			return (this.root = node);
 		}
 	}
+
+	prettyPrint(node, prefix = "", isLeft = true) {
+		if (node === null) {
+			return;
+		}
+		if (node.right !== null) {
+			this.prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+		}
+		console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
+		if (node.left !== null) {
+			this.prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+		}
+	}
 }
 
 function test() {
 	//let array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-	let array = [1, 7, 4, 23, 8, 9/*, 4*/, 3, 5, 7/*, 9*/, 67, 6345, 324];
+	let array = [1 /*, 7*/, 4, 23, 8, 9 /*, 4*/, 3, 5, 7 /*, 9*/, 67, 6345, 324];
 	array.sort((a, b) => a - b);
 	console.log(array);
 	console.log();
 
 	let prova0 = new Tree(array);
 	prova0.buildTree();
-	console.log(prova0.root);
+	console.log(JSON.stringify(prova0.root, undefined, 4));
+    console.log();
+    prova0.prettyPrint(prova0.root);
 }
 
 test();

@@ -24,6 +24,8 @@ class Tree {
 		this.root = null;
 	}
 
+    // Sorts and removes duplicates
+    // Working
 	arraySorter(array) {
 		this.array = array.sort((a, b) => a - b);
 		this.array = array.filter((item, index) => array.indexOf(item) === index);
@@ -32,6 +34,8 @@ class Tree {
 		return this.array;
 	}
 
+    // Builds the Balanced Binary Search Tree
+    // Working
 	buildTree(array = this.array) {
 		this.array = this.arraySorter(array);
 		array = this.array;
@@ -57,6 +61,8 @@ class Tree {
 		}
 	}
 
+    // Prints the Balanced BST in a horizontally way
+    // Working
 	prettyPrint(node, prefix = "", isLeft = true) {
 		if (node === null) {
 			return;
@@ -68,6 +74,24 @@ class Tree {
 		if (node.left !== null) {
 			this.prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
 		}
+	}
+
+    // Returns the node with a given value or null
+    // Working
+	find(value) {
+		let temp = this.root;
+
+		while (temp.data !== null) {
+			if (value === temp.data) {
+				return temp;
+			} else if (value < temp.data) {
+                temp = temp.left;
+			} else if (value > temp.data) {
+                temp = temp.right;
+            }
+		}
+
+        return null
 	}
 }
 
@@ -81,6 +105,9 @@ function test() {
 	console.log();
 	prova0.prettyPrint(prova0.root);
 	console.log();
+
+	console.log(prova0.find(6345));
+    console.log();
 }
 
 test();

@@ -24,8 +24,8 @@ class Tree {
 		this.root = null;
 	}
 
-    // Sorts and removes duplicates
-    // Working
+	// Sorts and removes duplicates
+	// Working
 	arraySorter(array) {
 		this.array = array.sort((a, b) => a - b);
 		this.array = array.filter((item, index) => array.indexOf(item) === index);
@@ -34,8 +34,8 @@ class Tree {
 		return this.array;
 	}
 
-    // Builds the Balanced Binary Search Tree
-    // Working
+	// Builds the Balanced Binary Search Tree
+	// Working
 	buildTree(array = this.array) {
 		this.array = this.arraySorter(array);
 		array = this.array;
@@ -61,8 +61,8 @@ class Tree {
 		}
 	}
 
-    // Prints the Balanced BST in a horizontally way
-    // Working
+	// Prints the Balanced BST in a horizontally way
+	// Working
 	prettyPrint(node, prefix = "", isLeft = true) {
 		if (node === null) {
 			return;
@@ -76,28 +76,44 @@ class Tree {
 		}
 	}
 
-    // Returns the node with a given value or null
-    // Working
+	// Returns the node with a given value or null
+	// Working
 	find(value) {
 		let temp = this.root;
 
-		while (temp.data !== null) {
+		while (temp !== null) {
 			if (value === temp.data) {
 				return temp;
 			} else if (value < temp.data) {
-                temp = temp.left;
+				temp = temp.left;
 			} else if (value > temp.data) {
-                temp = temp.right;
-            }
+				temp = temp.right;
+			}
 		}
 
-        return null
+		return null;
 	}
+
+	levelOrder(callback) {}
+
+	inOrder(callback) {}
+
+	preOrder(callback) {}
+
+	postOrder(callback) {}
+
+	height(node = this.array) {}
+
+	depth(node = this.array) {}
+
+	isBalanced() {}
+
+	rebalance() {}
 }
 
 function test() {
 	let array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-
+	//let array = [1, 2, 3, 4];
 	let prova0 = new Tree(array);
 	prova0.buildTree();
 	console.log();
@@ -107,7 +123,7 @@ function test() {
 	console.log();
 
 	console.log(prova0.find(6345));
-    console.log();
+	console.log();
 }
 
 test();

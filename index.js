@@ -107,22 +107,9 @@ class Tree {
 		};
 	}
 
-	// Same as callback()
-	// Working
-	callback2() {
-		let array = [];
-		function pushNode(tempNode) {
-			array.push(tempNode.data);
-		}
-		return {
-			array,
-			pushNode,
-		};
-	}
-
 	// Returns an array of values (Breadth-First-Search) if no callback is given
 	// Working
-	levelOrder(callback = this.callback2) {
+	levelOrder(callback = this.callback) {
 		let defaultCallback = callback();
 		let queue = [];
 		queue.push(this.root);
@@ -142,7 +129,34 @@ class Tree {
 		return defaultCallback.array;
 	}
 
-	inOrder(callback) {}
+	// Returns an array of values by
+	// Going first left, reading the data and then right
+	inOrder(callback = this.callback) {
+		let defaultCallback = callback();
+		let queue = [this.root];
+		let temp = this.root;
+		let temp2 = this.root;
+		while (queue.length !== 0) {
+			let tempNode = queue.shift();
+
+			if (temp.left !== null) {
+				temp = temp.left;
+			} else {
+				queue.push(temp);
+			}
+			if (temp.right !== null) {
+			} else {
+				queue.push(temp2);
+			}
+		}
+
+		for (let i = 0; i < queue.length; i++) {
+			console.log("1");
+			defaultCallback.pushNode(queue[i]);
+		}
+
+		return defaultCallback.array;
+	}
 
 	preOrder(callback) {}
 
@@ -171,6 +185,7 @@ function test() {
 
 	//console.log(prova0.find(6345));
 	console.log(prova0.levelOrder(/*prova0.callback*/));
+	console.log(prova0.inOrder());
 }
 
 test();

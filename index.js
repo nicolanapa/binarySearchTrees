@@ -94,31 +94,52 @@ class Tree {
 		return null;
 	}
 
+	// Callback function which pushes a data of a given node in an array
+	// Working
+	callback() {
+		let array = [];
+		function pushNode(tempNode) {
+			array.push(tempNode.data);
+		}
+		return {
+			array,
+			pushNode,
+		};
+	}
+
+	// Same as callback()
+	// Working
+	callback2() {
+		let array = [];
+		function pushNode(tempNode) {
+			array.push(tempNode.data);
+		}
+		return {
+			array,
+			pushNode,
+		};
+	}
+
 	// Returns an array of values (Breadth-First-Search) if no callback is given
-	// Working 1/2
-	// Need to setup with a callback function
-	levelOrder(callback = "") {
+	// Working
+	levelOrder(callback = this.callback2) {
+		let defaultCallback = callback();
 		let queue = [];
 		queue.push(this.root);
-		let leveledOrderArray = [this.root.data];
+
 		while (queue.length !== 0) {
 			let tempNode = queue.shift();
+			defaultCallback.pushNode(tempNode);
 
 			if (tempNode.left !== null) {
 				queue.push(tempNode.left);
-				leveledOrderArray.push(tempNode.left.data);
 			}
 			if (tempNode.right !== null) {
 				queue.push(tempNode.right);
-				leveledOrderArray.push(tempNode.right.data);
 			}
 		}
 
-		if (callback === "") {
-			return leveledOrderArray;
-		} else {
-			return "x";
-		}
+		return defaultCallback.array;
 	}
 
 	inOrder(callback) {}
@@ -149,7 +170,7 @@ function test() {
 	console.log();
 
 	//console.log(prova0.find(6345));
-	console.log(prova0.levelOrder());
+	console.log(prova0.levelOrder(/*prova0.callback*/));
 }
 
 test();

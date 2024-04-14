@@ -94,6 +94,9 @@ class Tree {
 		return null;
 	}
 
+	// Returns an array of values (Breadth-First-Search) if no callback is given
+	// Working 1/2
+	// Need to setup with a callback function
 	levelOrder(callback = "") {
 		let queue = [];
 		queue.push(this.root);

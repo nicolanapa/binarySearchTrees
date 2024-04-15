@@ -214,14 +214,23 @@ class Tree {
 		return null;
 	}
 
-	isBalanced() {}
+	isBalanced() {
+		let left = this.height(this.root.left);
+		let right = this.height(this.root.right);
+
+		if (left - 1 === right || left + 1 === right || left === right) {
+			return "It's Balanced";
+		} else {
+			return "Not Balanced";
+		}
+	}
 
 	rebalance() {}
 }
 
 function test() {
 	let array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-	//let array = [1, 2, 3, 4];
+	//let array = [1, 2, 3, 4, 5, 6];
 	let prova0 = new Tree(array);
 	prova0.arraySorter();
 	prova0.buildTree();
@@ -233,10 +242,17 @@ function test() {
 
 	//console.log(prova0.find(6345));
 	console.log(prova0.levelOrder(/*prova0.callback*/));
+	console.log();
 	console.log(prova0.inOrder());
 	console.log();
-	console.log(prova0.depth(prova0.root.left));
-	console.log(prova0.height(prova0.root.left));
+	console.log(prova0.preOrder());
+	console.log();
+	console.log(prova0.postOrder());
+	console.log();
+	//console.log(prova0.depth(prova0.root.left));
+	//console.log(prova0.height(prova0.root.left));
+	//console.log(prova0.isBalanced());
+	console.log();
 }
 
 test();

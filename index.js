@@ -63,7 +63,7 @@ class Tree {
 
 	// Prints the Balanced BST in a horizontally way
 	// Working
-	prettyPrint(node, prefix = "", isLeft = true) {
+	prettyPrint(node = this.root, prefix = "", isLeft = true) {
 		if (node === null) {
 			return;
 		}
@@ -257,4 +257,38 @@ function test() {
 	console.log();
 }
 
+function randomArray(size, maxNumbers) {
+	function getRandomInt(maxNumbers) {
+		return Math.floor(Math.random() * maxNumbers);
+	}
+	let array = [];
+	array.length = size;
+
+	for (let i = 0; i < size; i++) {
+		array[i] = getRandomInt(maxNumbers);
+	}
+
+	return array;
+}
+
+function driverScript() {
+	let binarySearchTree = new Tree(randomArray(10, 100));
+	binarySearchTree.arraySorter();
+	binarySearchTree.buildTree();
+	console.log();
+	binarySearchTree.prettyPrint();
+	console.log();
+
+	console.log(binarySearchTree.isBalanced());
+	console.log();
+
+	console.log(binarySearchTree.levelOrder());
+	console.log(binarySearchTree.preOrder());
+	console.log(binarySearchTree.postOrder());
+	console.log();
+
+	// 4 point to 8 still needed
+}
+
 test();
+//driverScript();

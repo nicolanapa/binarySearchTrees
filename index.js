@@ -214,6 +214,8 @@ class Tree {
 		return null;
 	}
 
+	// Checks if a BST is balanced
+	// Working
 	isBalanced() {
 		let left = this.height(this.root.left);
 		let right = this.height(this.root.right);

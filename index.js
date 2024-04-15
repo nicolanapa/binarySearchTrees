@@ -49,9 +49,9 @@ class Tree {
 		} else {
 			let arrayBeforeMid = array.slice(0, mid);
 			let arrayAfterMid = array.slice(mid + 1, mid + end);
-			console.log("Mid:", array[mid]);
-			console.log("Before:", arrayBeforeMid);
-			console.log("After:", arrayAfterMid);
+			//console.log("Mid:", array[mid]);
+			//console.log("Before:", arrayBeforeMid);
+			//console.log("After:", arrayAfterMid);
 
 			let node = new Node(array[mid]);
 			node.left = this.buildTree(arrayBeforeMid);
@@ -133,26 +133,22 @@ class Tree {
 	// Going first left, reading the data and then right
 	inOrder(callback = this.callback) {
 		let defaultCallback = callback();
-		let queue = [this.root];
-		let temp = this.root;
-		let temp2 = this.root;
+		let queue = [];
+		queue.push(this.root);
+
 		while (queue.length !== 0) {
 			let tempNode = queue.shift();
 
-			if (temp.left !== null) {
-				temp = temp.left;
-			} else {
-				queue.push(temp);
+			if (tempNode.left !== null) {
+				queue.push(tempNode.left);
+			} else if (tempNode.left === null) {
+				defaultCallback.pushNode(tempNode);
 			}
-			if (temp.right !== null) {
-			} else {
-				queue.push(temp2);
+			if (tempNode.left === null && tempNode.right !== null) {
+				queue.push(tempNode.right);
+			} else if (tempNode.left === null) {
+				defaultCallback.pushNode(tempNode);
 			}
-		}
-
-		for (let i = 0; i < queue.length; i++) {
-			console.log("1");
-			defaultCallback.pushNode(queue[i]);
 		}
 
 		return defaultCallback.array;
@@ -237,8 +233,8 @@ function test() {
 	prova0.arraySorter();
 	prova0.buildTree();
 	console.log();
-	console.log(JSON.stringify(prova0.root, undefined, 4));
-	console.log();
+	//console.log(JSON.stringify(prova0.root, undefined, 4));
+	//console.log();
 	prova0.prettyPrint(prova0.root);
 	console.log();
 

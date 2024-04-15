@@ -164,7 +164,25 @@ class Tree {
 
 	height(node = this.array) {}
 
-	depth(node = this.array) {}
+	// Returns the depth of a node from the root
+	// Working
+	depth(node = this.array) {
+		let temp = this.root;
+		let depth = 0;
+		while (temp !== null) {
+			if (node.data === temp.data) {
+				return depth;
+			} else if (node.data < temp.data) {
+				temp = temp.left;
+				depth += 1;
+			} else if (node.data > temp.data) {
+				temp = temp.right;
+				depth += 1;
+			}
+		}
+
+		return null;
+	}
 
 	isBalanced() {}
 
@@ -186,6 +204,7 @@ function test() {
 	//console.log(prova0.find(6345));
 	console.log(prova0.levelOrder(/*prova0.callback*/));
 	console.log(prova0.inOrder());
+	console.log(prova0.depth(prova0.root.left.left.left));
 }
 
 test();

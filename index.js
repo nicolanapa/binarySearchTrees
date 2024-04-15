@@ -162,7 +162,37 @@ class Tree {
 
 	postOrder(callback) {}
 
-	height(node = this.array) {}
+	// Returns the height from a given node to a leaf node
+	// Should Work on most cases
+	height(node = this.array) {
+		let temp = this.root;
+		let height = 0;
+		let temp2;
+		while (temp !== null) {
+			if (node.data === temp.data) {
+				temp2 = temp;
+				temp = null;
+			} else if (node.data < temp.data) {
+				temp = temp.left;
+			} else if (node.data > temp.data) {
+				temp = temp.right;
+			}
+		}
+
+		let queue = [];
+		queue.push(temp2);
+
+		while (queue.length !== 0) {
+			let tempNode = queue.shift();
+
+			if (tempNode.left !== null) {
+				queue.push(tempNode.left);
+				height += 1;
+			}
+		}
+
+		return height;
+	}
 
 	// Returns the depth of a node from the root
 	// Working
@@ -204,7 +234,9 @@ function test() {
 	//console.log(prova0.find(6345));
 	console.log(prova0.levelOrder(/*prova0.callback*/));
 	console.log(prova0.inOrder());
-	console.log(prova0.depth(prova0.root.left.left.left));
+	console.log();
+	console.log(prova0.depth(prova0.root.left));
+	console.log(prova0.height(prova0.root.left));
 }
 
 test();

@@ -177,6 +177,8 @@ class Tree {
 			return array1;
 		} else if (array2 !== undefined) {
 			return array2;
+		} else {
+			return this.root;
 		}
 	}
 
@@ -203,8 +205,73 @@ class Tree {
 		return defaultCallback.array;
 	}
 
-	//
-	postOrder(callback = this.callback) {}
+	// Returns an array of values by
+	// Going first left then right then reading the data
+	// Working
+	postOrder(callback = this.callback) {
+		let defaultCallback = callback();
+		let queue;
+		let tempNode;
+		let array1 = undefined;
+		let array2 = undefined;
+		if (this.root.left !== null) {
+			queue = [this.root.left];
+
+			while (queue.length !== 0) {
+				let tempNode = queue.pop();
+				defaultCallback.pushNode(tempNode);
+
+				if (tempNode.right !== null) {
+					queue.push(tempNode.right);
+				}
+				if (tempNode.left !== null) {
+					queue.unshift(tempNode.left);
+				}
+			}
+
+			array1 = defaultCallback.array;
+			array1.reverse();
+			defaultCallback.array = [];
+		}
+
+		let defaultCallback2 = callback();
+
+		if (this.root.right !== null) {
+			queue = [this.root.right];
+
+			while (queue.length !== 0) {
+				let tempNode = queue.shift();
+				defaultCallback2.pushNode(tempNode);
+
+				if (tempNode.right !== null) {
+					queue.push(tempNode.right);
+				}
+				if (tempNode.left !== null) {
+					queue.push(tempNode.left);
+				}
+			}
+
+			array2 = defaultCallback2.array;
+			defaultCallback2.array = [];
+			array2.reverse();
+			defaultCallback2.pushNode(this.root);
+			array2 = array2.concat(defaultCallback2.array);
+			defaultCallback2.array = [];
+		}
+
+		if (array1 !== undefined && array2 !== undefined) {
+			let array = array1;
+			array = array.concat(array2);
+
+			return array;
+		} else if (array1 !== undefined) {
+			return array1;
+		} else if (array2 !== undefined) {
+			return array2;
+		} else {
+			return this.root;
+		}
+	}
 
 	// Returns the height from a given node to a leaf node
 	// Should Work on most cases
@@ -240,7 +307,7 @@ class Tree {
 	}
 
 	// Returns the depth of a node from the root
-	// Working, need to be rechecked again in the future
+	// Working, needs to be rechecked again in the future (maybe)
 	depth(node = this.array) {
 		let temp = this.root;
 		let depth = 0;
@@ -260,7 +327,7 @@ class Tree {
 	}
 
 	// Checks if a BST is balanced
-	// Working
+	// Working, needs to be rechecked again in the future (with the reworking of height)
 	isBalanced() {
 		let left = this.height(this.root.left);
 		let right = this.height(this.root.right);
@@ -292,10 +359,10 @@ function test() {
 	console.log();
 	//console.log(prova0.inOrder());
 	//console.log();
-	console.log(prova0.preOrder());
-	console.log();
-	console.log(prova0.postOrder());
-	console.log();
+	//console.log(prova0.preOrder());
+	//console.log();
+	//console.log(prova0.postOrder());
+	//console.log();
 	//console.log(prova0.depth(prova0.root.left));
 	//console.log(prova0.height(prova0.root.left));
 	//console.log(prova0.isBalanced());

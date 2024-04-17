@@ -182,7 +182,26 @@ class Tree {
 
 	// Returns an array of values by
 	// Reading first data then going left then right
-	preOrder(callback = this.callback) {}
+	// Working
+	preOrder(callback = this.callback) {
+		let defaultCallback = callback();
+		let queue = [];
+		queue.push(this.root);
+
+		while (queue.length !== 0) {
+			let tempNode = queue.shift();
+			defaultCallback.pushNode(tempNode);
+
+			if (tempNode.right !== null) {
+				queue.unshift(tempNode.right);
+			}
+			if (tempNode.left !== null) {
+				queue.unshift(tempNode.left);
+			}
+		}
+
+		return defaultCallback.array;
+	}
 
 	//
 	postOrder(callback = this.callback) {}
@@ -271,8 +290,8 @@ function test() {
 	//console.log(prova0.find(6345));
 	console.log(prova0.levelOrder(/*prova0.callback*/));
 	console.log();
-	console.log(prova0.inOrder());
-	console.log();
+	//console.log(prova0.inOrder());
+	//console.log();
 	console.log(prova0.preOrder());
 	console.log();
 	console.log(prova0.postOrder());
@@ -280,7 +299,7 @@ function test() {
 	//console.log(prova0.depth(prova0.root.left));
 	//console.log(prova0.height(prova0.root.left));
 	//console.log(prova0.isBalanced());
-	console.log();
+	//console.log();
 }
 
 function randomArray(size, maxNumbers) {

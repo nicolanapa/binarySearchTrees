@@ -1,15 +1,3 @@
-/*
-    Root: the half of the array
-
-    (while (array.size !== 1)) Continue like this until the array is size 1
-        Root: the half of the array
-    If left half of Root is lower then place it as the left of the node
-    If it's greater then place it as the right of the node
-    (end while)
-
-    Output the balanced Binary Search Tree array
-*/
-
 class Node {
 	constructor(data) {
 		this.data = data;
@@ -131,27 +119,64 @@ class Tree {
 
 	// Returns an array of values by
 	// Going first left, reading the data and then right
+	// Inverted array
 	inOrder(callback = this.callback) {
 		let defaultCallback = callback();
-		let queue = [];
-		queue.push(this.root);
+		let queue;
+		let tempNode;
+		let array1 = undefined;
+		let array2 = undefined;
+		if (this.root.left !== null) {
+			queue = [this.root.left];
+			while (queue.length !== 0) {
+				tempNode = queue.pop();
+				if (tempNode.left !== null) {
+					queue.push(tempNode.left);
+				}
+				if (tempNode.right !== null) {
+					queue.push(tempNode.right);
+				}
 
-		while (queue.length !== 0) {
-			let tempNode = queue.shift();
-
-			if (tempNode.left !== null) {
-				queue.push(tempNode.left);
-			} else if (tempNode.left === null) {
 				defaultCallback.pushNode(tempNode);
 			}
-			if (tempNode.left === null && tempNode.right !== null) {
-				queue.push(tempNode.right);
-			} else if (tempNode.left === null) {
-				defaultCallback.pushNode(tempNode);
-			}
+			array1 = defaultCallback.array;
+			array1 = array1.sort((a, b) => a - b);
+			defaultCallback.array = [];
+			defaultCallback.pushNode(this.root);
+			array1 = array1.concat(defaultCallback.array);
+			defaultCallback.array = [];
 		}
 
-		return defaultCallback.array;
+		let defaultCallback2 = callback();
+
+		if (this.root.right !== null) {
+			queue = [this.root.right];
+			while (queue.length !== 0) {
+				tempNode = queue.pop();
+				if (tempNode.left !== null) {
+					queue.push(tempNode.left);
+				}
+				if (tempNode.right !== null) {
+					queue.push(tempNode.right);
+				}
+
+				defaultCallback2.pushNode(tempNode);
+			}
+
+			array2 = defaultCallback2.array;
+			array2 = array2.sort((a, b) => a - b);
+			defaultCallback2.array = [];
+		}
+
+		if (array1 !== undefined && array2 !== undefined) {
+			let array = array1;
+			array = array.concat(array2);
+			return array;
+		} else if (array1 !== undefined) {
+			return array1;
+		} else if (array2 !== undefined) {
+			return array2;
+		}
 	}
 
 	preOrder(callback) {}

@@ -95,7 +95,8 @@ class Tree {
 		};
 	}
 
-	// Returns an array of values (Breadth-First-Search) if no callback is given
+	// Returns an array of values by
+	// (Breadth First Search) Going from left to right once for level
 	// Working
 	levelOrder(callback = this.callback) {
 		let defaultCallback = callback();
@@ -119,7 +120,7 @@ class Tree {
 
 	// Returns an array of values by
 	// Going first left, reading the data and then right
-	// Inverted array
+	// Working
 	inOrder(callback = this.callback) {
 		let defaultCallback = callback();
 		let queue;
@@ -179,12 +180,16 @@ class Tree {
 		}
 	}
 
-	preOrder(callback) {}
+	// Returns an array of values by
+	// Reading first data then going left then right
+	preOrder(callback = this.callback) {}
 
-	postOrder(callback) {}
+	//
+	postOrder(callback = this.callback) {}
 
 	// Returns the height from a given node to a leaf node
 	// Should Work on most cases
+	// Working 1/2, needs reworking in the future
 	height(node = this.array) {
 		let temp = this.root;
 		let height = 0;
@@ -216,7 +221,7 @@ class Tree {
 	}
 
 	// Returns the depth of a node from the root
-	// Working
+	// Working, need to be rechecked again in the future
 	depth(node = this.array) {
 		let temp = this.root;
 		let depth = 0;

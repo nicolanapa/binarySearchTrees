@@ -65,6 +65,7 @@ class Tree {
 	}
 
 	// Inserts a given value in a BST
+	// Working
 	insert(value) {
 		this.array.push(value);
 		this.arraySorter();

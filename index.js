@@ -339,6 +339,8 @@ class Tree {
 		}
 	}
 
+	// Sorts the array and rebalances the BST
+	// Working
 	rebalance() {
 		this.array = this.arraySorter();
 		this.buildTree();
@@ -417,7 +419,7 @@ function driverScript() {
 	binarySearchTree.array[binarySearchTree.array.length - 5] = 185;
 	//binarySearchTree.arraySorter();
 	console.log("New Tree");
-	//binarySearchTree.buildTree();
+	binarySearchTree.buildTree();
 	binarySearchTree.prettyPrint();
 
 	// 5

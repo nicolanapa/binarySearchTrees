@@ -100,7 +100,43 @@ class Tree {
 	}
 
 	// Removes a given value in a BST
-	remove(value) {}
+	remove(value) {
+		let index = this.array.indexOf(value);
+		if (index !== -1) {
+			this.array.splice(index, 1);
+		} else {
+			return new Error("Value not found");
+		}
+		this.arraySorter();
+		let temp = this.root;
+		let temp2;
+
+		if (this.root === null) {
+			return new Error("Can't remove null");
+		}
+
+		while (temp !== null) {
+			if (value === temp.data) {
+				if (temp.left !== null && temp.right !== null) {
+					return (temp2 = temp);
+				} else if (temp.left !== null && temp.right === null) {
+					return (temp2 = temp);
+				} else if (temp.left === null && temp.right !== null) {
+					return (temp2 = temp);
+				} else {
+					return (temp2 = null);
+				}
+			} else if (value < temp.data) {
+				temp2 = temp;
+				temp = temp.left;
+			} else if (value > temp.data) {
+				temp2 = temp;
+				temp = temp.right;
+			}
+		}
+
+		return null;
+	}
 
 	// Returns the node with a given value or null
 	// Working
@@ -398,6 +434,9 @@ function test() {
 	prova0.insert(2);
 	prova0.insert(2.5);
 
+	console.log(prova0.remove(8000));
+	console.log(prova0.remove(67));
+	console.log(prova0.array);
 	prova0.prettyPrint(prova0.root);
 	console.log();
 
@@ -455,17 +494,19 @@ function driverScript() {
 	console.log();
 
 	// 4
-	binarySearchTree.array[binarySearchTree.array.length] = 150;
-	binarySearchTree.array[binarySearchTree.array.length - 2] = 160;
-	binarySearchTree.array[binarySearchTree.array.length] = 125;
-	binarySearchTree.array[binarySearchTree.array.length - 5] = 185;
+	binarySearchTree.insert(160);
+	binarySearchTree.insert(165);
+	binarySearchTree.insert(165.5);
+	binarySearchTree.insert(166);
+	binarySearchTree.insert(125);
+	binarySearchTree.insert(185);
 	//binarySearchTree.arraySorter();
-	console.log("New Tree");
-	binarySearchTree.buildTree();
+	//console.log("New Tree");
+	//binarySearchTree.buildTree();
 	binarySearchTree.prettyPrint();
 
 	// 5
-	console.log(binarySearchTree.isBalanced());
+	console.log(binarySearchTree.isBalanced()); // Not working
 
 	// 6
 	binarySearchTree.rebalance();

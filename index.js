@@ -18,7 +18,7 @@ class Tree {
 		this.array = array.sort((a, b) => a - b);
 		this.array = array.filter((item, index) => array.indexOf(item) === index);
 
-		console.log("New sorted array:", this.array);
+		//console.log("New sorted array:", this.array);
 		return this.array;
 	}
 
@@ -65,7 +65,38 @@ class Tree {
 	}
 
 	// Inserts a given value in a BST
-	insert(value) {}
+	insert(value) {
+		this.array.push(value);
+		this.arraySorter();
+		let temp = this.root;
+		let temp2;
+
+		if (this.root === null) {
+			return (this.root = new Node(value));
+		}
+
+		while (temp !== null) {
+			if (value === temp.data) {
+				return new Error("Can't insert the same value");
+			} else if (value < temp.data) {
+				temp2 = temp;
+				temp = temp.left;
+			} else if (value > temp.data) {
+				temp2 = temp;
+				temp = temp.right;
+			}
+		}
+
+		let node = new Node(value);
+
+		if (value > temp2.data) {
+			return (temp2.right = node);
+		} else if (value < temp2.data) {
+			return (temp2.left = node);
+		}
+
+		return null;
+	}
 
 	// Removes a given value in a BST
 	remove(value) {}
@@ -281,7 +312,7 @@ class Tree {
 
 	// Returns the height from a given node to a leaf node
 	// Should Work on most cases
-	// Working 1/2, needs reworking in the future
+	// Working 1/2
 	height(node = this.array) {
 		let temp = this.root;
 		let height = 0;
@@ -333,7 +364,7 @@ class Tree {
 	}
 
 	// Checks if a BST is balanced
-	// Working, needs to be rechecked again in the future (with the reworking of height)
+	// Working 1/2
 	isBalanced() {
 		let left = this.height(this.root.left);
 		let right = this.height(this.root.right);
@@ -360,8 +391,12 @@ function test() {
 	prova0.arraySorter();
 	prova0.buildTree();
 	console.log();
-	//console.log(JSON.stringify(prova0.root, undefined, 4));
-	//console.log();
+
+	prova0.insert(1);
+	prova0.insert(8000);
+	prova0.insert(2);
+	prova0.insert(2.5);
+
 	prova0.prettyPrint(prova0.root);
 	console.log();
 
@@ -376,7 +411,7 @@ function test() {
 	//console.log();
 	//console.log(prova0.depth(prova0.root.left));
 	//console.log(prova0.height(prova0.root.left));
-	//console.log(prova0.isBalanced());
+	console.log(prova0.isBalanced());
 	//console.log();
 }
 
@@ -450,5 +485,5 @@ function driverScript() {
 	console.log();
 }
 
-//test();
-driverScript();
+test();
+//driverScript();

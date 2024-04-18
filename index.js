@@ -339,7 +339,10 @@ class Tree {
 		}
 	}
 
-	rebalance() {}
+	rebalance() {
+		this.array = this.arraySorter();
+		this.buildTree();
+	}
 }
 
 function test() {
@@ -384,6 +387,7 @@ function randomArray(size, maxNumbers) {
 }
 
 function driverScript() {
+	// 1
 	let binarySearchTree = new Tree(randomArray(10, 100));
 	binarySearchTree.arraySorter();
 	binarySearchTree.buildTree();
@@ -391,16 +395,52 @@ function driverScript() {
 	binarySearchTree.prettyPrint();
 	console.log();
 
+	// 2
 	console.log(binarySearchTree.isBalanced());
 	console.log();
 
+	// 3
+	console.log("Level Order");
 	console.log(binarySearchTree.levelOrder());
+	console.log("In Order");
+	console.log(binarySearchTree.inOrder());
+	console.log("Pre Order");
 	console.log(binarySearchTree.preOrder());
+	console.log("Post Order");
 	console.log(binarySearchTree.postOrder());
 	console.log();
 
-	// 4 point to 8 still needed
+	// 4
+	binarySearchTree.array[binarySearchTree.array.length] = 150;
+	binarySearchTree.array[binarySearchTree.array.length - 2] = 160;
+	binarySearchTree.array[binarySearchTree.array.length] = 125;
+	binarySearchTree.array[binarySearchTree.array.length - 5] = 185;
+	//binarySearchTree.arraySorter();
+	console.log("New Tree");
+	//binarySearchTree.buildTree();
+	binarySearchTree.prettyPrint();
+
+	// 5
+	console.log(binarySearchTree.isBalanced());
+
+	// 6
+	binarySearchTree.rebalance();
+	binarySearchTree.prettyPrint();
+
+	// 7
+	console.log(binarySearchTree.isBalanced());
+
+	// 8
+	console.log("Level Order");
+	console.log(binarySearchTree.levelOrder());
+	console.log("In Order");
+	console.log(binarySearchTree.inOrder());
+	console.log("Pre Order");
+	console.log(binarySearchTree.preOrder());
+	console.log("Post Order");
+	console.log(binarySearchTree.postOrder());
+	console.log();
 }
 
-test();
-//driverScript();
+//test();
+driverScript();

@@ -64,6 +64,12 @@ class Tree {
 		}
 	}
 
+	// Inserts a given value in a BST
+	insert(value) {}
+
+	// Removes a given value in a BST
+	remove(value) {}
+
 	// Returns the node with a given value or null
 	// Working
 	find(value) {

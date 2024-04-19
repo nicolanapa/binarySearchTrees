@@ -25,9 +25,6 @@ class Tree {
 	// Builds the Balanced Binary Search Tree
 	// Working
 	buildTree(array = this.array) {
-		/*this.array2 = this.arraySorter(array);
-		array = this.array2;*/
-		// NEED TO: Sort, remove duplicates
 		let start = 0;
 		let end = array.length - 1;
 		let mid = Math.round((start + end) / 2);
@@ -37,9 +34,6 @@ class Tree {
 		} else {
 			let arrayBeforeMid = array.slice(0, mid);
 			let arrayAfterMid = array.slice(mid + 1, mid + end);
-			//console.log("Mid:", array[mid]);
-			//console.log("Before:", arrayBeforeMid);
-			//console.log("After:", arrayAfterMid);
 
 			let node = new Node(array[mid]);
 			node.left = this.buildTree(arrayBeforeMid);
@@ -100,6 +94,7 @@ class Tree {
 	}
 
 	// Removes a given value in a BST
+	// Working
 	remove(value) {
 		let index = this.array.indexOf(value);
 		if (index !== -1) {
@@ -108,34 +103,7 @@ class Tree {
 			return new Error("Value not found");
 		}
 		this.arraySorter();
-		let temp = this.root;
-		let temp2;
-
-		if (this.root === null) {
-			return new Error("Can't remove null");
-		}
-
-		while (temp !== null) {
-			if (value === temp.data) {
-				if (temp.left !== null && temp.right !== null) {
-					return (temp2 = temp);
-				} else if (temp.left !== null && temp.right === null) {
-					return (temp2 = temp);
-				} else if (temp.left === null && temp.right !== null) {
-					return (temp2 = temp);
-				} else {
-					return (temp2 = null);
-				}
-			} else if (value < temp.data) {
-				temp2 = temp;
-				temp = temp.left;
-			} else if (value > temp.data) {
-				temp2 = temp;
-				temp = temp.right;
-			}
-		}
-
-		return null;
+		this.buildTree();
 	}
 
 	// Returns the node with a given value or null
@@ -434,14 +402,15 @@ function test() {
 	prova0.insert(2);
 	prova0.insert(2.5);
 
-	console.log(prova0.remove(8000));
-	console.log(prova0.remove(67));
+	prova0.remove(8000);
+	prova0.remove(67);
 	console.log(prova0.array);
 	prova0.prettyPrint(prova0.root);
 	console.log();
+	console.log(prova0.array);
 
 	//console.log(prova0.find(6345));
-	console.log(prova0.levelOrder(/*prova0.callback*/));
+	//console.log(prova0.levelOrder(/*prova0.callback*/));
 	console.log();
 	//console.log(prova0.inOrder());
 	//console.log();

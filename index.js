@@ -349,7 +349,7 @@ class Tree {
 	}
 
 	// Returns the depth of a node from the root
-	// Working, needs to be rechecked again in the future (maybe)
+	// Working
 	depth(node = this.array) {
 		let temp = this.root;
 		let depth = 0;
@@ -482,7 +482,7 @@ function driverScript() {
 	binarySearchTree.prettyPrint();
 
 	// 7
-	console.log(binarySearchTree.isBalanced());
+	console.log(binarySearchTree.isBalanced()); // Not working
 
 	// 8
 	console.log("Level Order");
@@ -494,7 +494,9 @@ function driverScript() {
 	console.log("Post Order");
 	console.log(binarySearchTree.postOrder());
 	console.log();
+
+	// Everything working expect isBalanced()
 }
 
-test();
-//driverScript();
+//test();
+driverScript();

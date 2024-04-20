@@ -315,37 +315,14 @@ class Tree {
 		}
 	}
 
-	// Returns the height from a given node to a leaf node
-	// Should Work on most cases
-	// Working 1/2
+	// Returns the height of a given node to the biggest leaf one
+	// Working
 	height(node = this.array) {
-		let temp = this.root;
-		let height = 0;
-		let temp2;
-		while (temp !== null) {
-			if (node.data === temp.data) {
-				temp2 = temp;
-				temp = null;
-			} else if (node.data < temp.data) {
-				temp = temp.left;
-			} else if (node.data > temp.data) {
-				temp = temp.right;
-			}
+		if (node == null) {
+			return 0;
 		}
 
-		let queue = [];
-		queue.push(temp2);
-
-		while (queue.length !== 0) {
-			let tempNode = queue.shift();
-
-			if (tempNode.left !== null) {
-				queue.push(tempNode.left);
-				height += 1;
-			}
-		}
-
-		return height;
+		return Math.max(this.height(node.left), this.height(node.right)) + 1;
 	}
 
 	// Returns the depth of a node from the root
@@ -369,16 +346,20 @@ class Tree {
 	}
 
 	// Checks if a BST is balanced
-	// Working 1/2
+	// Working
 	isBalanced() {
-		let left = this.height(this.root.left);
-		let right = this.height(this.root.right);
-
-		if (left - 1 === right || left + 1 === right || left === right) {
-			return "It's Balanced";
-		} else {
-			return "Not Balanced";
+		if (this.array == null) {
+			return true;
 		}
+
+		let left = this.height(this.root.left) + 1;
+		let right = this.height(this.root.right) + 1;
+
+		if (left - right >= -1 && left - right <= 1) {
+			return true;
+		}
+
+		return false;
 	}
 
 	// Sorts the array and rebalances the BST
@@ -419,7 +400,7 @@ function test() {
 	//console.log(prova0.postOrder());
 	//console.log();
 	//console.log(prova0.depth(prova0.root.left));
-	//console.log(prova0.height(prova0.root.left));
+	console.log(prova0.height(prova0.root.left));
 	console.log(prova0.isBalanced());
 	//console.log();
 }
@@ -469,20 +450,17 @@ function driverScript() {
 	binarySearchTree.insert(166);
 	binarySearchTree.insert(125);
 	binarySearchTree.insert(185);
-	//binarySearchTree.arraySorter();
-	//console.log("New Tree");
-	//binarySearchTree.buildTree();
 	binarySearchTree.prettyPrint();
 
 	// 5
-	console.log(binarySearchTree.isBalanced()); // Not working
+	console.log(binarySearchTree.isBalanced());
 
 	// 6
 	binarySearchTree.rebalance();
 	binarySearchTree.prettyPrint();
 
 	// 7
-	console.log(binarySearchTree.isBalanced()); // Not working
+	console.log(binarySearchTree.isBalanced());
 
 	// 8
 	console.log("Level Order");
@@ -494,8 +472,6 @@ function driverScript() {
 	console.log("Post Order");
 	console.log(binarySearchTree.postOrder());
 	console.log();
-
-	// Everything working expect isBalanced()
 }
 
 //test();
